@@ -1,0 +1,15 @@
+{
+	"files.associations": {
+		"typeinfo": "cpp",
+		"chrono": "cpp",
+		"cmath": "cpp",
+		"shared_mutex": "cpp",
+		"iosfwd": "cpp",
+		"stdexcept": "cpp",
+		"type_traits": "cpp",
+		"*.tcc": "cpp",
+		"string": "cpp",
+		"unordered_map": "cpp",
+		"string_view": "cpp"
+	}
+}

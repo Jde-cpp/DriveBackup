@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DriveBackup", "DriveBackup.vcxproj", "{B3DBDB2D-1109-4C38-A34D-E69D94A6CB93}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7FC3CC33-B345-423E-99B6-5D499E531FBF} = {7FC3CC33-B345-423E-99B6-5D499E531FBF}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drives", "Drives", "{A49B7C99-1C66-4DD6-A539-606D9244C98F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Framework", "..\..\Framework\source\Framework.vcxproj", "{7FC3CC33-B345-423E-99B6-5D499E531FBF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Google", "..\..\Google\source\Google.vcxproj", "{C7188528-A17F-457F-886C-6976383A36EE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ssl", "..\..\Ssl\source\ssl.vcxproj", "{3505B31F-01FF-458F-AFF7-193E60ECF0FE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Windows", "..\..\Windows\source\Windows.vcxproj", "{5982096E-D6E2-4071-99F8-36F77E67FF40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3DBDB2D-1109-4C38-A34D-E69D94A6CB93}.Debug|x64.ActiveCfg = Debug|x64
+		{B3DBDB2D-1109-4C38-A34D-E69D94A6CB93}.Debug|x64.Build.0 = Debug|x64
+		{B3DBDB2D-1109-4C38-A34D-E69D94A6CB93}.Release|x64.ActiveCfg = Release|x64
+		{B3DBDB2D-1109-4C38-A34D-E69D94A6CB93}.Release|x64.Build.0 = Release|x64
+		{7FC3CC33-B345-423E-99B6-5D499E531FBF}.Debug|x64.ActiveCfg = Debug|x64
+		{7FC3CC33-B345-423E-99B6-5D499E531FBF}.Debug|x64.Build.0 = Debug|x64
+		{7FC3CC33-B345-423E-99B6-5D499E531FBF}.Release|x64.ActiveCfg = Release|x64
+		{7FC3CC33-B345-423E-99B6-5D499E531FBF}.Release|x64.Build.0 = Release|x64
+		{C7188528-A17F-457F-886C-6976383A36EE}.Debug|x64.ActiveCfg = Debug|x64
+		{C7188528-A17F-457F-886C-6976383A36EE}.Debug|x64.Build.0 = Debug|x64
+		{C7188528-A17F-457F-886C-6976383A36EE}.Release|x64.ActiveCfg = Release|x64
+		{C7188528-A17F-457F-886C-6976383A36EE}.Release|x64.Build.0 = Release|x64
+		{3505B31F-01FF-458F-AFF7-193E60ECF0FE}.Debug|x64.ActiveCfg = Debug|x64
+		{3505B31F-01FF-458F-AFF7-193E60ECF0FE}.Debug|x64.Build.0 = Debug|x64
+		{3505B31F-01FF-458F-AFF7-193E60ECF0FE}.Release|x64.ActiveCfg = Release|x64
+		{3505B31F-01FF-458F-AFF7-193E60ECF0FE}.Release|x64.Build.0 = Release|x64
+		{5982096E-D6E2-4071-99F8-36F77E67FF40}.Debug|x64.ActiveCfg = Debug|x64
+		{5982096E-D6E2-4071-99F8-36F77E67FF40}.Debug|x64.Build.0 = Debug|x64
+		{5982096E-D6E2-4071-99F8-36F77E67FF40}.Release|x64.ActiveCfg = Release|x64
+		{5982096E-D6E2-4071-99F8-36F77E67FF40}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C7188528-A17F-457F-886C-6976383A36EE} = {A49B7C99-1C66-4DD6-A539-606D9244C98F}
+		{5982096E-D6E2-4071-99F8-36F77E67FF40} = {A49B7C99-1C66-4DD6-A539-606D9244C98F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {221C0219-CC42-4B90-9115-981017C8AD75}
+	EndGlobalSection
+EndGlobal
