@@ -10,6 +10,9 @@
 		"*.tcc": "cpp",
 		"string": "cpp",
 		"unordered_map": "cpp",
-		"string_view": "cpp"
-	}
+		"string_view": "cpp",
+		"exception": "cpp"
+	},
+	"editor.tabSize": 3,
+	"window.title": "Backup"
 }

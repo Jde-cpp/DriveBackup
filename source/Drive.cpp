@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Drive.h"
-#include "io/drive/DriveApi.h"
-#include "io/DiskWatcher.h"
+#include "../../Framework/source/io/drive/DriveApi.h"
+#include "../../Framework/source/io/DiskWatcher.h"
 
 namespace Jde::IO
 {

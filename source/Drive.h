@@ -1,5 +1,5 @@
 #pragma once
-#include "Dll.h"
+#include "../../Framework/source/Dll.h"
 
 namespace Jde::IO
 {

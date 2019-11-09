@@ -7,7 +7,7 @@ DEBUG ?= 1
 INCLUDE = 
 CXXFLAGS_BASE = -c -g -pthread -fPIC -std=c++17 -Wall -Wno-unknown-pragmas $(INCLUDE) -I$(OUT_DIR)
 
-BIN_DIR_BASE:=../bin/
+BIN_DIR_BASE:=../../bin/
 OUT_DIR_BASE := .obj/
 LIBS_BASE =  -lMy -lJdeSsl -ldl -lprotobuf -lssl -lcrypto -lboost_system -lmatio -lstdc++fs 
 ifeq ($(DEBUG), 1)
@@ -35,13 +35,13 @@ $(OUTPUT): $(OUT_DIR)/stdafx.h.gch $(OBJECTS)
 	$(CXX) $(LIBFLAGS) $(OBJECTS) -o$(OUTPUT)  $(LIBS)
 
 $(OUT_DIR)/stdafx.h.gch: pc.h
-	$(CXX) $(CXXFLAGS) ./pc.h -o $(OUT_DIR)/stdafx.h.gch -I/home/duffyj/code/libraries/spdlog/include -I../framework -I/home/duffyj/code/libraries/json/include
+	$(CXX) $(CXXFLAGS) ./pc.h -o $(OUT_DIR)/stdafx.h.gch -I/home/duffyj/code/libraries/spdlog/include -I../../Framework/source -I/home/duffyj/code/libraries/json/include
 
 $(OUT_DIR)/main.o: main.cpp pc.h
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $< -o$@ -I../framework
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $< -o$@
 
 $(OUT_DIR)/%.o: ./%.cpp %.h pc.h
-	$(CXX) $(CXXFLAGS) $(INCLUDE) ./$< -o$@ -I../framework
+	$(CXX) $(CXXFLAGS) $(INCLUDE) ./$< -o$@
 
 clean:
 	rm -rf -d $(OUT_DIR)/*.*

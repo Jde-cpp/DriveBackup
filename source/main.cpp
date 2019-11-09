@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Application.h"
+#include "../../Framework/source/Application.h"
 #include "Scan.h"
 #include "Drive.h"
 #include "Merge.h"
@@ -14,14 +14,15 @@ namespace Jde::DriveBackup
 	int Run()noexcept(false);
 }
 
-int main()
+int main( int argc, char** argv )
 {
 	int result = EXIT_FAILURE;
 	try
 	{
-		std::filesystem::path settingsPath = std::filesystem::path( "DriveBackup.json" );
-		Jde::Settings::SetGlobal( std::make_shared<Jde::Settings::Container>(settingsPath) );
-		Jde::InitializeLogger( "DriveBackup" );
+		Jde::Application::Startup( argc, argv, "DriveBackup" );
+		// std::filesystem::path settingsPath = std::filesystem::path( "DriveBackup.json" );
+		// Jde::Settings::SetGlobal( std::make_shared<Jde::Settings::Container>(settingsPath) );
+		// Jde::InitializeLogger( "DriveBackup" );
 		Jde::DriveBackup::SettingsPtr = Jde::Settings::Global().SubContainer( "DriveBackup" );
 		std::thread{ []{Jde::DriveBackup::Run();} }.detach();
 		Jde::Application::Pause();

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Merge.h"
-#include "io/DiskWatcher.h"
+#include "../../Framework/source/io/DiskWatcher.h"
 
 #define var const auto
 
