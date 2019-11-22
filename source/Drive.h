@@ -4,7 +4,6 @@
 namespace Jde::IO
 {
 	struct IDrive;
-
-	sp<IDrive> LoadDriveModule( const fs::path& libraryName );
+	sp<IDrive> LoadDriveModule( const fs::path& libraryName )noexcept(false);
 
 }

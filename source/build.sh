@@ -27,7 +27,7 @@ if [ $clean -eq 1 ]; then
 	if [ $debug -eq 1 ]; then
 		ccache g++-8 -c -g -pthread -fPIC -std=c++17 -Wall -Wno-unknown-pragmas  -O0 -I.obj/debug -fsanitize=address -fno-omit-frame-pointer ./pc.h -o .obj/debug/stdafx.h.gch -I/home/duffyj/code/libraries/spdlog/include -I../../Framework/source -I/home/duffyj/code/libraries/json/include
 	else
-		ccache g++-8 -c -g -pthread -fPIC -std=c++17 -Wall -Wno-unknown-pragmas -DJDE_SSL_EXPORTS -march=native -DNDEBUG -O3 -I/home/duffyj/code/libraries/boostorg/boost_1_68_0 -I/home/duffyj/code/libraries/json/include -I/home/duffyj/code/libraries/spdlog/include -I../../Framework/source
+		ccache g++-8 -c -g -pthread -fPIC -std=c++17 -Wall -Wno-unknown-pragmas -DJDE_SSL_EXPORTS -march=native -DNDEBUG -O3 -I$BOOST_ROOT -I/home/duffyj/code/libraries/json/include -I/home/duffyj/code/libraries/spdlog/include -I../../Framework/source
 	fi;
 	if [ $? -eq 1 ]; then
 		exit 1

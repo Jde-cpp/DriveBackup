@@ -1,5 +1,7 @@
 #include "stdafx.h"
-#include "../../Framework/source/Application.h"
+#ifndef _MSC_VER
+	#include "../../Framework/source/application/ApplicationLinux.h"
+#endif
 #include "Scan.h"
 #include "Drive.h"
 #include "Merge.h"
@@ -19,13 +21,13 @@ int main( int argc, char** argv )
 	int result = EXIT_FAILURE;
 	try
 	{
-		Jde::Application::Startup( argc, argv, "DriveBackup" );
+		Jde::OSApp::Startup( argc, argv, "DriveBackup" );
 		// std::filesystem::path settingsPath = std::filesystem::path( "DriveBackup.json" );
 		// Jde::Settings::SetGlobal( std::make_shared<Jde::Settings::Container>(settingsPath) );
 		// Jde::InitializeLogger( "DriveBackup" );
 		Jde::DriveBackup::SettingsPtr = Jde::Settings::Global().SubContainer( "DriveBackup" );
 		std::thread{ []{Jde::DriveBackup::Run();} }.detach();
-		Jde::Application::Pause();
+		Jde::IApplication::Pause();
 	}
 	catch( const Jde::EnvironmentException& e )
 	{
@@ -101,13 +103,14 @@ namespace Jde::DriveBackup
 		for( uint i=0; i<entries.size(); ++i )
 			statuses[i] = fmt::format( "{}->{}", entries[i].Source.Name, entries[i].Destination.Name );
 
-		//IO::IDrive* pDrive = LoadDrive();
-		//var contents = pDrive->Recursive( "/tmp" );
-		//TODO:  trash needs to work, double check TSLA/options uploads.
 		for( var entry : entries )
 		{
 			try
 			{
+				//double check TSLA/options uploads.
+				//for google get earliest history.
+				//for drive start watcher.
+				//
 				DBG( "({}[{}])=>({}[{}])", entry.Source.Path.string(), entry.Source.Driver.string(), entry.Destination.Path.string(), entry.Destination.Driver.string() );
 				auto pSource = IO::LoadDriveModule( entry.Source.Driver );
 				auto pDestModule = IO::LoadDriveModule( entry.Destination.Driver );
@@ -119,7 +122,7 @@ namespace Jde::DriveBackup
 				*statuses.rbegin() = fmt::format( "Loading {}", entry.Destination.Name );
 				Logging::SetStatus( statuses );
 				auto destinationEntries = pDestModule->Recursive( entry.Destination.Path );
-				string format = fmt::format( "{}->{} {{}}/{}", entry.Source.Name, entry.Destination.Name, sourceEntries.size() );
+				auto format = fmt::format( "{}->{} {{}}/{}", entry.Source.Name, entry.Destination.Name, sourceEntries.size() );
 
 				auto sync = [&entry, &format,&statuses]( const fs::path& destPath, const fs::path& /*sourcePath*/, IO::IDrive& destinationModule, IO::IDrive& souceModule, const map<string,IO::IDirEntryPtr>& sourceEntries, map<string,IO::IDirEntryPtr>& destinationEntries )
 				{
@@ -156,6 +159,7 @@ namespace Jde::DriveBackup
 					while( RemoveOrphans(entry.Source.Path, entry.Destination.Path, *pSource, *pDestModule, sourceEntries, destinationEntries, statuses) );
 				else
 					while( sync(entry.Source.Path, entry.Destination.Path, *pSource, *pDestModule, destinationEntries, sourceEntries) );
+				INFO0( "Complete!" );
 			}
 			catch( const Exception& e )
 			{
