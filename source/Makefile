@@ -9,7 +9,7 @@ CXXFLAGS_BASE = -c -g -pthread -fPIC -std=c++17 -Wall -Wno-unknown-pragmas $(INC
 
 BIN_DIR_BASE:=../../bin/
 OUT_DIR_BASE := .obj/
-LIBS_BASE = -lMy -lboost_system -lJdeSsl -ldl -lprotobuf -lssl -lcrypto -lmatio -lstdc++fs 
+LIBS_BASE = -lMy -lJdeSsl -ldl -lprotobuf -lssl -lcrypto -lstdc++fs 
 ifeq ($(DEBUG), 1)
 	OUT_DIR=$(OUT_DIR_BASE)debug
 	CXXFLAGS= $(CXXFLAGS_BASE) -O0 -fsanitize=address -fno-omit-frame-pointer  
@@ -35,7 +35,7 @@ $(OUTPUT): $(OUT_DIR)/stdafx.h.gch $(OBJECTS)
 	$(CXX) $(LIBFLAGS) $(OBJECTS) -o$(OUTPUT)  $(LIBS)
 
 $(OUT_DIR)/stdafx.h.gch: pc.h
-	$(CXX) $(CXXFLAGS) ./pc.h -o $(OUT_DIR)/stdafx.h.gch -I/home/duffyj/code/libraries/spdlog/include -I../../Framework/source -I/home/duffyj/code/libraries/json/include
+	$(CXX) $(CXXFLAGS) ./pc.h -o $(OUT_DIR)/stdafx.h.gch -I$$BOOST_ROOT -I/home/duffyj/code/libraries/spdlog/include -I../../Framework/source -I/home/duffyj/code/libraries/json/include
 
 $(OUT_DIR)/main.o: main.cpp pc.h
 	$(CXX) $(CXXFLAGS) $(INCLUDE) $< -o$@

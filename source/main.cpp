@@ -124,10 +124,10 @@ namespace Jde::DriveBackup
 				auto destinationEntries = pDestModule->Recursive( entry.Destination.Path );
 				auto format = fmt::format( "{}->{} {{}}/{}", entry.Source.Name, entry.Destination.Name, sourceEntries.size() );
 
-				auto sync = [&entry, &format,&statuses]( const fs::path& destPath, const fs::path& /*sourcePath*/, IO::IDrive& destinationModule, IO::IDrive& souceModule, const map<string,IO::IDirEntryPtr>& sourceEntries, map<string,IO::IDirEntryPtr>& destinationEntries )
+				auto sync = [&entry, &format,&statuses]( const fs::path& destPath, const fs::path& /*sourcePath*/, IO::IDrive& destinationModule, IO::IDrive& sourceModule, const map<string,IO::IDirEntryPtr>& sourceEntries, map<string,IO::IDirEntryPtr>& destinationEntries )
 				{
 					uint i=0; var startCount = destinationEntries.size();
-					for( var& [relativePath,pDirEntry] : sourceEntries )
+					for( var& [relativePath,pSource] : sourceEntries )
 					{
 						*statuses.rbegin() = fmt::format( format, ++i );
 						Logging::SetStatus( statuses );
@@ -135,13 +135,14 @@ namespace Jde::DriveBackup
 						if( pDestination==destinationEntries.end() )
 						{
 							var path = destPath/relativePath;
-							DBG( "Uploading:  '{}'", path.string() );
 							try
 							{
-								IO::IDirEntryPtr pNewItem = pDirEntry->IsDirectory()
-									? destinationModule.CreateFolder( path, *pDirEntry )
-									: destinationModule.Save( path, *souceModule.Load(*pDirEntry) , *pDirEntry );
-								destinationEntries.emplace( relativePath, pNewItem );
+								//DBG( "Upload '{}'", relativePath );
+								destinationEntries.emplace( relativePath, Upload(*pSource, path, sourceModule, destinationModule) );
+								// IO::IDirEntryPtr pNewItem = pSource->IsDirectory()
+								// 	? destinationModule.CreateFolder( path, *pSource )
+								// 	: destinationModule.Save( path, *sourceModule.Load(*pSource) , *pSource );
+								// destinationEntries.emplace( relativePath, pNewItem );
 							}
 							catch( const Exception& )
 							{}
@@ -149,6 +150,11 @@ namespace Jde::DriveBackup
 							{
 								DBG( "Could not upload '{}' - '{}'.", path.string(), e.what() );
 							}
+						}
+						else if( !pSource->IsDirectory() && pDestination->second->Size!=pSource->Size )
+						{
+							DBG( "Replace '{}'", relativePath );
+							Replace( *pSource, *pDestination->second, sourceModule, destinationModule, relativePath );
 						}
 					}
 					return destinationEntries.size()-startCount;
