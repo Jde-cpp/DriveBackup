@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Drive.h"
 #include "../../Framework/source/io/drive/DriveApi.h"
 #include "../../Framework/source/io/DiskWatcher.h"

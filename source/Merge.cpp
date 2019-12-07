@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Merge.h"
 #include "../../Framework/source/io/DiskWatcher.h"
 

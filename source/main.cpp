@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #ifndef _MSC_VER
 	#include "../../Framework/source/application/ApplicationLinux.h"
 #endif

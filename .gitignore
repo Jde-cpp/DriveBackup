@@ -35,3 +35,5 @@
 /source/.vs/*
 *.user
 *.db
+source/.vscode/settings.json
+source/.vscode/tasks.json
