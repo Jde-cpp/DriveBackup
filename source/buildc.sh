@@ -1,5 +1,5 @@
 #!/bin/bash
-type=${1:-asan}
+type=${1:-debug}
 clean=${2:-0}
 all=${3:-1}
 

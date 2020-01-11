@@ -34,7 +34,7 @@ namespace Jde::DriveBackup
 				{}
 				catch( const fs::filesystem_error& e )
 				{
-					DBG( "Could not erase '{}' - '{}'.", path.string(), e.what() );
+					DBGN( "Could not erase '{}' - '{}'.", path.string(), e.what() );
 				}
 			}
 		}
@@ -43,14 +43,14 @@ namespace Jde::DriveBackup
 	IO::IDirEntryPtr Upload( const IO::IDirEntry& source, const fs::path& destination, IO::IDrive& sourceModule, IO::IDrive& destinationModule )
 	{
 		//var path = destPath/relativePath;
-		DBG( "Uploading:  '{}'", destination.string() );
+		DBGN( "Uploading:  '{}'", destination.string() );
 		return source.IsDirectory()
 			? destinationModule.CreateFolder( destination, source )
 			: destinationModule.Save( destination, *sourceModule.Load(source) , source );
 	}
 	void Replace( const IO::IDirEntry& source, const IO::IDirEntry& destination, IO::IDrive& sourceModule, IO::IDrive& destinationModule, string_view relativePath )noexcept(false)
 	{
-		DBG( "Replacing:  '{}'", relativePath );
+		DBGN( "Replacing:  '{}'", relativePath );
 		if( source.IsDirectory() )
 			THROW( IOException("Replace not implemented on directory '{}'", source.Path.string()) );
 		destinationModule.Trash( destination.Path );

@@ -37,3 +37,6 @@
 *.db
 source/.vscode/settings.json
 source/.vscode/tasks.json
+source/DriveBackup.json
+source/DriveBackup.log
+source/.vscode/launch.json

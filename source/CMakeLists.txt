@@ -8,6 +8,7 @@ link_directories( ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} )
 
 add_executable( Jde.Drive main.cpp Scan.cpp Drive.cpp Merge.cpp )
 #######################################################
+target_link_libraries(Jde.Drive boost_regex)
 target_link_libraries(Jde.Drive Threads::Threads)
 target_link_libraries(Jde.Drive Jde)
 target_link_libraries(Jde.Drive Jde.Ssl)
@@ -20,7 +21,7 @@ target_link_libraries(Jde.Drive stdc++fs)
 #######################################################
 target_precompile_headers(Jde.Drive
 	PRIVATE
-	<boost/crc.hpp> 
+	<boost/crc.hpp>
 	<boost/noncopyable.hpp>
 	<boost/system/error_code.hpp>
 	<spdlog/spdlog.h>
