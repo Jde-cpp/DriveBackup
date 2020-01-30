@@ -33,7 +33,7 @@ namespace Jde::DriveBackup
 		if( j.find("removeOrphans")!=j.end() )
 		{
 			bool boolean=false;
-			try{ j.at("removeOrphans").get_to( boolean ); }catch( nlohmann::detail::type_error& e ){ ERR("Could not parse removeOrphans:  {}", e.what());}
+			try{ j.at("removeOrphans").get_to( boolean ); }catch( nlohmann::detail::type_error& e ){ ERR("Could not parse removeOrphans:  {}"sv, e.what());}
 			object.RemoveOrphans = boolean;
 		}
 	}

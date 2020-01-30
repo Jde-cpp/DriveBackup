@@ -33,7 +33,7 @@ int main( int argc, char** argv )
 	}
 	catch( const Jde::EnvironmentException& e )
 	{
-		CRITICAL0( e.what() );
+		CRITICAL0( std::string(e.what()) );
 	}
 	return result;
 }
@@ -49,7 +49,7 @@ namespace Jde::DriveBackup
 		{
 			auto pDriver = IO::LoadDriveModule( entry.Driver );
 			var latestDate = Clock::now()-entry.Expiration;
-			DBG( "{} - removing trash upto '{}'", entry.Name, ToIsoString(latestDate) );
+			DBG( "{} - removing trash upto '{}'"sv, entry.Name, ToIsoString(latestDate) );
 			pDriver->TrashDisposal( latestDate );
 		}
 
@@ -66,7 +66,7 @@ namespace Jde::DriveBackup
 				//for google get earliest history.
 				//for drive start watcher.
 				//
-				DBG( "({}[{}])=>({}[{}])", entry.Source.Path.string(), entry.Source.Driver.string(), entry.Destination.Path.string(), entry.Destination.Driver.string() );
+				DBG( "({}[{}])=>({}[{}])"sv, entry.Source.Path.string(), entry.Source.Driver.string(), entry.Destination.Path.string(), entry.Destination.Driver.string() );
 				auto pSource = IO::LoadDriveModule( entry.Source.Driver );
 				auto pDestModule = IO::LoadDriveModule( entry.Destination.Driver );
 
@@ -109,12 +109,12 @@ namespace Jde::DriveBackup
 							{}
 							catch( const fs::filesystem_error& e )
 							{
-								DBG( "Could not upload '{}' - '{}'.", path.string(), e.what() );
+								DBG( "Could not upload '{}' - '{}'."sv, path.string(), e.what() );
 							}
 						}
 						else if( !pSource->IsDirectory() && pDestination->second->Size!=pSource->Size )
 						{
-							DBG( "Replace '{}'", relativePath );
+							DBG( "Replace '{}'"sv, relativePath );
 							try
 							{
 								Replace( *pSource, *pDestination->second, sourceModule, destinationModule, relativePath );
@@ -131,11 +131,11 @@ namespace Jde::DriveBackup
 					while( RemoveOrphans(entry.Source.Path, entry.Destination.Path, *pSource, *pDestModule, sourceEntries, destinationEntries, statuses) );
 				else
 					while( sync(entry.Source.Path, entry.Destination.Path, *pSource, *pDestModule, destinationEntries, sourceEntries) );
-				INFO0( "Complete!" );
+				INFO0( "Complete!"sv );
 			}
 			catch( const Exception& e )
 			{
-				ERR0( e.what() );
+				ERR0( string(e.what()) );
 				//Cleanup?
 			}
 				//Linux
@@ -151,7 +151,7 @@ namespace Jde::DriveBackup
 		//merge.
 		//auto pScan = std::make_shared<Jde::IO::Scanner>();
 		//pScan->Run();
-		DBG0( "Run() complete" );
+		DBG0( "Run() complete"sv );
 		return EXIT_SUCCESS;
 	}
 }
