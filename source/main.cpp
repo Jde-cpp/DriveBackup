@@ -58,7 +58,7 @@ namespace Jde::DriveBackup
 		for( uint i=0; i<entries.size(); ++i )
 			statuses[i] = fmt::format( "{}->{}", entries[i].Source.Name, entries[i].Destination.Name );
 
-		for( var entry : entries )
+		for( var& entry : entries )
 		{
 			try
 			{

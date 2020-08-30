@@ -1,4 +1,3 @@
-#export CXX=g++-8
 cmake_minimum_required(VERSION 3.16)
 project(Jde.Drive)
 set( CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/../../Framework/cmake )
@@ -17,8 +16,8 @@ target_link_libraries(Jde.Drive dl)
 target_link_libraries(Jde.Drive protobuf)
 target_link_libraries(Jde.Drive ssl)
 target_link_libraries(Jde.Drive crypto)
-target_link_libraries(Jde.Drive stdc++fs)
-
+#target_link_libraries(Jde.Drive stdc++fs)
+target_link_libraries(Jde.Drive stdc++)
 #######################################################
 target_precompile_headers(Jde.Drive
 	PRIVATE

@@ -16,8 +16,10 @@ namespace Jde::DriveBackup
 		var startCount = destinationEntries.size();
 		var format = fmt::format( "Verifying Destination {{}}/{}", startCount );
 		int i=0;
-		for( var& [relativePath,pDirEntry] : destinationEntries )
+		for( auto p = destinationEntries.begin(); p!=destinationEntries.end(); )
 		{
+			var& relativePath = p->first;
+			//var& pDirEntry = p->second;
 			*statuses.rbegin() = fmt::format( format, ++i );
 			Logging::SetStatus( statuses );
 			var pSource = sourceEntries.find( relativePath );
@@ -28,7 +30,7 @@ namespace Jde::DriveBackup
 				try
 				{
 					destinationModule.Trash( path );
-					destinationEntries.erase( relativePath );
+					p = destinationEntries.erase( p );
 				}
 				catch( const Exception& e )
 				{}
@@ -37,6 +39,8 @@ namespace Jde::DriveBackup
 					DBGN( "Could not erase '{}' - '{}'.", path.string(), e.what() );
 				}
 			}
+			else
+				++p;
 		}
 		return destinationEntries.size()-startCount;
 	}
