@@ -44,7 +44,7 @@ namespace Jde::DriveBackup
 // "source":          {"driver":"/home/duffyj/code/jde/7.0/native/bin/debug/libDriveLinux.so","name":"Linux","path":"/mnt/2TB/securities2"}}
 	int Run()noexcept(false)
 	{
-		var trashEntries = Jde::DriveBackup::SettingsPtr->Array<TrashEntry>( "TrashDisposal" );
+/*		var trashEntries = Jde::DriveBackup::SettingsPtr->Array<TrashEntry>( "TrashDisposal" );
 		for( var& entry : trashEntries )
 		{
 			auto pDriver = IO::LoadDriveModule( entry.Driver );
@@ -52,7 +52,7 @@ namespace Jde::DriveBackup
 			DBG( "{} - removing trash upto '{}'"sv, entry.Name, ToIsoString(latestDate) );
 			pDriver->TrashDisposal( latestDate );
 		}
-
+*/
 		var entries = Jde::DriveBackup::SettingsPtr->Array<Entry>( "Entries" );
 		vector<string> statuses( entries.size()+1 );
 		for( uint i=0; i<entries.size(); ++i )
@@ -98,7 +98,7 @@ namespace Jde::DriveBackup
 							var path = destPath/relativePath;
 							try
 							{
-								//DBG( "Upload '{}'", relativePath );
+								DBG( "Upload '{}'"sv, relativePath );
 								destinationEntries.emplace( relativePath, Upload(*pSource, path, sourceModule, destinationModule) );
 								// IO::IDirEntryPtr pNewItem = pSource->IsDirectory()
 								// 	? destinationModule.CreateFolder( path, *pSource )
@@ -114,7 +114,7 @@ namespace Jde::DriveBackup
 						}
 						else if( !pSource->IsDirectory() && pDestination->second->Size!=pSource->Size )
 						{
-							DBG( "Replace '{}'"sv, relativePath );
+							DBG( "Replace '{}', destination size='{}', source size='{}'"sv, relativePath, pDestination->second->Size, pSource->Size );
 							try
 							{
 								Replace( *pSource, *pDestination->second, sourceModule, destinationModule, relativePath );
@@ -129,8 +129,9 @@ namespace Jde::DriveBackup
 				format = fmt::format( "{}->{} {{}}/{}", entry.Source.Name, entry.Destination.Name, destinationEntries.size() );
 				if( entry.Destination.RemoveOrphans )
 					while( RemoveOrphans(entry.Source.Path, entry.Destination.Path, *pSource, *pDestModule, sourceEntries, destinationEntries, statuses) );
-				else
-					while( sync(entry.Source.Path, entry.Destination.Path, *pSource, *pDestModule, destinationEntries, sourceEntries) );
+			//need to reload or save previous replace sizes above.
+				//else
+				//	while( sync(entry.Source.Path, entry.Destination.Path, *pSource, *pDestModule, destinationEntries, sourceEntries) );
 				INFO0( "Complete!"sv );
 			}
 			catch( const Exception& e )
